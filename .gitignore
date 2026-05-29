@@ -1,0 +1,105 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.*
+!.env.example
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+lib/
+lib64/
+wheels/
+.installed.cfg
+*.egg-link
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ruff
+.ruff_cache/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# uv
+uv.lock
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ML / Models
+models/
+*.bin
+*.safetensors
+*.gguf
+*.pt
+*.pth
+data/*.jsonl
+!data/README.md
+
+# Results / Eval outputs
+results/
+*.csv
+
+# Node / pnpm
+node_modules/
+ui/node_modules/
+pnpm-lock.yaml
+.pnpm-store/
+
+# Vite / Build
+ui/dist/
+ui/.vite/
+*.local
+
+# TypeScript
+*.tsbuildinfo
+ui/tsconfig.tsbuildinfo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Docker
+*.log
+
+# Secrets
+*.pem
+*.key
+*.p12
+secrets/

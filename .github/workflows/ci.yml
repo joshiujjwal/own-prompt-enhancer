@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    name: Backend (Python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv pip install -e ".[dev]" --system
+
+      - name: Lint (ruff)
+        run: ruff check src/ tests/
+
+      - name: Type check (mypy)
+        run: mypy src/
+
+      - name: Run tests
+        run: pytest tests/ -v --tb=short --cov=src --cov-report=xml
+        env:
+          OPENAI_API_KEY: "test-key"
+          ANTHROPIC_API_KEY: "test-key"
+          ADAPTER: "openai"
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: coverage.xml
+        continue-on-error: true
+
+  frontend:
+    name: Frontend (TypeScript)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ui
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm tsc --noEmit
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Run tests
+        run: pnpm test --run
